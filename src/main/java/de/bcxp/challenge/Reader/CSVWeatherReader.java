@@ -7,11 +7,11 @@ import java.util.ArrayList;
 import java.util.List;
 import de.bcxp.challenge.DataSources.*;
 
-public class CSVDayReader {
+public class CSVWeatherReader {
 
-    public List<Day> readDaysData(String dataPath, String delimiter) {
+    public List<WeatherDay> readDaysData(String dataPath, String delimiter) {
 
-        List<Day> days = new ArrayList<>();
+        List<WeatherDay> days = new ArrayList<>();
 
         try (BufferedReader br = new BufferedReader(new FileReader(dataPath))) {
             
@@ -19,7 +19,7 @@ public class CSVDayReader {
             
             while ((line = br.readLine()) != null) {
                 String[] attributes = line.split(delimiter);
-                Day day = new Day(
+                WeatherDay day = new WeatherDay(
                     Integer.parseInt(attributes[0]), 
                     Integer.parseInt(attributes[1]),
                     Integer.parseInt(attributes[2])

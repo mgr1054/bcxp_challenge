@@ -1,12 +1,12 @@
 package de.bcxp.challenge.DataSources;
 
-public class Day {
+public class WeatherDay {
 
     private int day;
     private int maxTemp;
     private int minTemp;
     
-    public Day(int day, int maxTemp, int minTemp) {
+    public WeatherDay(int day, int maxTemp, int minTemp) {
         this.day = day;
         this.maxTemp = maxTemp;
         this.minTemp = minTemp;
