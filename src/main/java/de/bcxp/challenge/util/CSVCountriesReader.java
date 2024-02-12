@@ -1,4 +1,4 @@
-package de.bcxp.challenge.Reader;
+package de.bcxp.challenge.util;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -9,9 +9,9 @@ import de.bcxp.challenge.DataSources.*;
 
 public class CSVCountriesReader {
 
-    public List<Country> readCountriesData(String dataPath, String delimiter) {
+    public List<CountryData> readCountriesData(String dataPath, String delimiter) {
 
-        List<Country> countries = new ArrayList<>();
+        List<CountryData> countries = new ArrayList<>();
 
         try (BufferedReader br = new BufferedReader(new FileReader(dataPath))) {
             
@@ -19,7 +19,7 @@ public class CSVCountriesReader {
             
             while ((line = br.readLine()) != null) {
                 String[] attributes = line.split(delimiter);
-                Country country = new Country(
+                CountryData country = new CountryData(
                     attributes[0], 
                     normalizePopulationData(attributes[3]),
                     Double.parseDouble(attributes[4])

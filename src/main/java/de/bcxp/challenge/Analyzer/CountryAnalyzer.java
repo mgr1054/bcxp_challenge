@@ -1,17 +1,17 @@
 package de.bcxp.challenge.Analyzer;
 
-import de.bcxp.challenge.DataSources.Country;
+import de.bcxp.challenge.DataSources.CountryData;
 
 import java.util.List;
 
 public class CountryAnalyzer {
 
-    public Country getMostDenseCountry (List<Country> countries){
+    public CountryData getMostDenseCountry (List<CountryData> countries){
 
-        Country mostDenseCountry = new Country(null, 0, 1);
+        CountryData mostDenseCountry = new CountryData(null, 0, 1);
 
-        for (Country country : countries) {
-            if (country.getDensity() > mostDenseCountry.getDensity()){
+        for (CountryData country : countries) {
+            if (country.getPopulationDensity() > mostDenseCountry.getPopulationDensity()){
                 mostDenseCountry = country;
             }
         }

@@ -1,4 +1,4 @@
-package de.bcxp.challenge.Reader;
+package de.bcxp.challenge.util;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -9,9 +9,9 @@ import de.bcxp.challenge.DataSources.*;
 
 public class CSVWeatherReader {
 
-    public List<WeatherDay> readDaysData(String dataPath, String delimiter) {
+    public List<WeatherData> readDaysData(String dataPath, String delimiter) {
 
-        List<WeatherDay> days = new ArrayList<>();
+        List<WeatherData> days = new ArrayList<>();
 
         try (BufferedReader br = new BufferedReader(new FileReader(dataPath))) {
             
@@ -19,7 +19,7 @@ public class CSVWeatherReader {
             
             while ((line = br.readLine()) != null) {
                 String[] attributes = line.split(delimiter);
-                WeatherDay day = new WeatherDay(
+                WeatherData day = new WeatherData(
                     Integer.parseInt(attributes[0]), 
                     Integer.parseInt(attributes[1]),
                     Integer.parseInt(attributes[2])

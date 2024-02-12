@@ -1,10 +1,10 @@
 package de.bcxp.challenge;
 
-import de.bcxp.challenge.Reader.CSVCountriesReader;
-import de.bcxp.challenge.Reader.CSVWeatherReader;
 import de.bcxp.challenge.Analyzer.CountryAnalyzer;
 import de.bcxp.challenge.Analyzer.DayAnalyzer;
 import de.bcxp.challenge.DataSources.*;
+import de.bcxp.challenge.util.CSVCountriesReader;
+import de.bcxp.challenge.util.CSVWeatherReader;
 
 import java.util.List;
 
@@ -25,16 +25,16 @@ public final class App {
     public static void main(String... args) {
 
         CSVWeatherReader weatherReader = new CSVWeatherReader();
-        List<WeatherDay> weatherData = weatherReader.readDaysData(weatherPath, ",");
+        List<WeatherData> weatherData = weatherReader.readDaysData(weatherPath, ",");
         DayAnalyzer dayAnalyzer = new DayAnalyzer();
-        WeatherDay dayWithSmallestTempSpread = dayAnalyzer.getSmallestSpread(weatherData);
+        WeatherData dayWithSmallestTempSpread = dayAnalyzer.getSmallestSpread(weatherData);
 
         System.out.printf("Day with smallest temperature spread: %s%n", dayWithSmallestTempSpread.getDay());
 
         CSVCountriesReader countriesReader = new CSVCountriesReader();
-        List<Country> countryData = countriesReader.readCountriesData(countriesPath, ";");
+        List<CountryData> countryData = countriesReader.readCountriesData(countriesPath, ";");
         CountryAnalyzer countryAnalyzer = new CountryAnalyzer();
-        Country countryWithHighestPopulationDensity = countryAnalyzer.getMostDenseCountry(countryData);
+        CountryData countryWithHighestPopulationDensity = countryAnalyzer.getMostDenseCountry(countryData);
 
         System.out.printf("Country with highest population density: %s%n", countryWithHighestPopulationDensity.getName());
     }
