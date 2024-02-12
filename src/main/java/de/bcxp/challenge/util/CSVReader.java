@@ -23,7 +23,7 @@ public class CSVReader<T> implements DataReader<T> {
         try (Reader reader = Files.newBufferedReader(Paths.get(filePath))) {
             CsvToBean<T> csvToBean = new CsvToBeanBuilder<T>(reader)
                 .withType(type)
-                .withSeparator(delimiter) // Set the delimiter to semicolon
+                .withSeparator(delimiter)
                 .withIgnoreLeadingWhiteSpace(true)
                 .build();
 
