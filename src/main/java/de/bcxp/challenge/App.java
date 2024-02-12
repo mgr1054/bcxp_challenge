@@ -1,10 +1,9 @@
 package de.bcxp.challenge;
 
-import de.bcxp.challenge.Analyzer.CountryAnalyzer;
-import de.bcxp.challenge.Analyzer.DayAnalyzer;
-import de.bcxp.challenge.DataSources.*;
-import de.bcxp.challenge.util.CSVCountriesReader;
-import de.bcxp.challenge.util.CSVWeatherReader;
+import de.bcxp.challenge.model.*;
+import de.bcxp.challenge.service.DataService;
+import de.bcxp.challenge.util.CSVReader;
+
 
 import java.util.List;
 
@@ -14,9 +13,7 @@ import java.util.List;
  */
 public final class App {
 
-    private static String basePath = "src/main/resources/de/bcxp/challenge/";
-    private static String countriesPath = basePath + "countries.csv";
-    private static String weatherPath = basePath + "weather.csv";
+   
 
     /**
      * This is the main entry method of your program.
@@ -24,18 +21,19 @@ public final class App {
      */
     public static void main(String... args) {
 
-        CSVWeatherReader weatherReader = new CSVWeatherReader();
-        List<WeatherData> weatherData = weatherReader.readDaysData(weatherPath, ",");
-        DayAnalyzer dayAnalyzer = new DayAnalyzer();
-        WeatherData dayWithSmallestTempSpread = dayAnalyzer.getSmallestSpread(weatherData);
+        final String basePath = "src/main/resources/de/bcxp/challenge/";
+        final String weatherDataFilePath = basePath + "weather.csv";
+        final String countryDataFilePath = basePath + "countries.csv";
 
-        System.out.printf("Day with smallest temperature spread: %s%n", dayWithSmallestTempSpread.getDay());
+        CSVReader<WeatherData> weatherDataReader = new CSVReader<>(WeatherData.class, ',');
+        CSVReader<CountryData> countryDataReader = new CSVReader<>(CountryData.class, ';');
+        DataService dataService = new DataService(weatherDataReader, countryDataReader);
 
-        CSVCountriesReader countriesReader = new CSVCountriesReader();
-        List<CountryData> countryData = countriesReader.readCountriesData(countriesPath, ";");
-        CountryAnalyzer countryAnalyzer = new CountryAnalyzer();
-        CountryData countryWithHighestPopulationDensity = countryAnalyzer.getMostDenseCountry(countryData);
+        int dayWithSmallestTempSpread = dataService.findDayWithSmallestTemperatureSpread(weatherDataFilePath);
+        System.out.println("Day with the smallest temperature spread: " + dayWithSmallestTempSpread);
 
-        System.out.printf("Country with highest population density: %s%n", countryWithHighestPopulationDensity.getName());
+        String countryWithHighestPopDensity = dataService.findCountryWithHighestPopulationDensity(countryDataFilePath);
+        System.out.println("Country with the highest population density: " + countryWithHighestPopDensity);
+
     }
 }
